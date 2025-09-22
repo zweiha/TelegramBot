@@ -25,8 +25,20 @@ public class Main {
             for (Update u : updates) {
                 if (u.message() != null && u.message().text() != null) {
                     long chatId = u.message().chat().id();
-                    String text  = u.message().text();
-                    bot.execute(new SendMessage(chatId, "ТЫ НАПИСАЛ: " + text));
+                    String messageText  = u.message().text();
+
+                    switch(messageText) {
+                    case "/help":
+                    case "/start":
+                        bot.execute(new SendMessage(chatId, 
+                            "Привет! Я бот-эхо. Напиши мне что-нибудь, и я это повторю.:\n" +
+                            "Список команд:\n" +
+                            "/start - Запустить бота\n" +
+                            "/help - Показать эту справку"));
+                        break;
+                    default:
+                        bot.execute(new SendMessage(chatId, "ТЫ НАПИСАЛ: " + messageText));    
+                    }
                 }
             }
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
