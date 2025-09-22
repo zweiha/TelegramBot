@@ -1,11 +1,6 @@
 package com.example.tgbot;
 
-import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.UpdatesListener;
-import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.SendMessage;
 import io.github.cdimascio.dotenv.Dotenv;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -19,33 +14,8 @@ public class Main {
             throw new IllegalArgumentException("Set BOT_TOKEN env var or .env");
         }
 
-        TelegramBot bot = new TelegramBot(token);
-
-        bot.setUpdatesListener((java.util.List<Update> updates) -> {
-            for (Update u : updates) {
-                if (u.message() != null && u.message().text() != null) {
-                    long chatId = u.message().chat().id();
-                    String messageText  = u.message().text().trim().toLowerCase();
-
-                    switch(messageText) {
-                    case "/help":
-                    case "/start":
-                        bot.execute(new SendMessage(chatId, 
-                            "Привет! Я бот-эхо. Напиши мне что-нибудь, и я это повторю.:\n" +
-                            "Список команд:\n" +
-                            "/start - Запустить бота\n" +
-                            "/help - Показать эту справку"));
-                        break;
-                    default:
-                        bot.execute(new SendMessage(chatId, "ТЫ НАПИСАЛ: " + u.message().text()));    
-                    }
-                }
-            }
-            return UpdatesListener.CONFIRMED_UPDATES_ALL;
-        });
-
-        System.out.println("Бот запущен. Напишите ему в Telegram.");
-        try { Thread.currentThread().join(); } catch (InterruptedException ignored) {}
+        TgBot bot = new TgBot(token);
+        bot.run();
     }
 }
 
