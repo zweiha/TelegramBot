@@ -4,12 +4,19 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 public class Main {
     public static void main(String[] args) {
-        String token = System.getenv("BOT_TOKEN");
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load(); 
+
+        String token = System.getenv("BOT_TOKEN"); 
         if (token == null || token.isBlank()) {
-            throw new IllegalArgumentException("Set BOT_TOKEN env var");
+            token = dotenv.get("BOT_TOKEN");
+        }
+        if (token == null || token.isBlank()) {
+            throw new IllegalArgumentException("Set BOT_TOKEN env var or .env");
         }
 
         TelegramBot bot = new TelegramBot(token);
