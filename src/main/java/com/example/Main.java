@@ -25,7 +25,7 @@ public class Main {
             for (Update u : updates) {
                 if (u.message() != null && u.message().text() != null) {
                     long chatId = u.message().chat().id();
-                    String messageText  = u.message().text();
+                    String messageText  = u.message().text().trim().toLowerCase();
 
                     switch(messageText) {
                     case "/help":
@@ -37,7 +37,7 @@ public class Main {
                             "/help - Показать эту справку"));
                         break;
                     default:
-                        bot.execute(new SendMessage(chatId, "ТЫ НАПИСАЛ: " + messageText));    
+                        bot.execute(new SendMessage(chatId, "ТЫ НАПИСАЛ: " + u.message().text()));    
                     }
                 }
             }
