@@ -16,6 +16,6 @@ public class Main {
 
         TgBot bot = new TgBot(token);
         bot.run();
-    }
+    }   
 }
 

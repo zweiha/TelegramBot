@@ -13,14 +13,14 @@ public class TgBot {
 	}
 
 	public void run() {
-		bot.setUpdatesListener(updates -> this.handleUpdates(updates));
+		bot.setUpdatesListener(updates -> this.process(updates));
 		System.out.println("Бот запущен. Напишите ему в Telegram.");
         try {
             Thread.currentThread().join();
         } catch (InterruptedException ignored) {}
     }
 	
-    private int handleUpdates(java.util.List<Update> updates) {
+    public int process(java.util.List<Update> updates) {
         for (Update u : updates) {
             if (u.message() != null && u.message().text() != null) {
                 long chatId = u.message().chat().id();
