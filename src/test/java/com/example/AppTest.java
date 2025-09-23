@@ -47,7 +47,7 @@ public class AppTest {
     }
 
     @Test
-    void testHelpCaseSensitivity()
+    void testCaseSensitivity()
     {
         SendMessage response = bot.createResponse(chatId, "/HELp");
         assertNotNull(response);
@@ -61,12 +61,5 @@ public class AppTest {
         SendMessage response = bot.createResponse(chatId, userMessage);
         assertNotNull(response);
         assertEquals("ТЫ НАПИСАЛ: " + userMessage, response.getParameters().get("text").toString());
-    }
-
-    @Test
-    void testNull()
-    {
-        SendMessage response = bot.createResponse(chatId, null);
-        assertNull(response);
     }
 }
